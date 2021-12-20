@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const csp = require('express-csp');
 const compression = require('compression');
 const cors = require('cors');
+const timeout = require('connect-timeout');
 
 const globalErrorHandler = require('./Controllers/MiddleWare/ErrorHandling/errorController');
 const AppError = require('./Utilities/appError');
@@ -170,6 +171,13 @@ app.use(hpp({
 
 // Compresses the text sent to the client side.
 app.use(compression());
+
+app.use(timeout(120000));
+app.use(haltOnTimedout);
+
+function haltOnTimedout(req, res, next){
+  if (!req.timedout) next();
+}
 
 /////////////////////////////// ROUTES ///////////////////////////////
 app.use('/', viewRouter);
