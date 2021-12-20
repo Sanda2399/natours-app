@@ -56,7 +56,6 @@ const sendErrorDev = (err, req, res) => {
 ///// Production Error Response /////
 const sendErrorProd = (err, req, res) => {
     const msg = err.isOperational ? err.message : 'this is unexpected -- please contact support';
-    console.log(err);
     
     if(req.originalUrl.match(/^[/]api[/]v/)) 
     // * Response to send if doing a api request *
