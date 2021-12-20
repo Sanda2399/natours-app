@@ -60,7 +60,6 @@ const sendErrorProd = (err, req, res) => {
     if(req.originalUrl.match(/^[/]api[/]v/)) 
     // * Response to send if doing a api request *
     {
-        console.log(err);
         return res.status(err.statusCode).json({
             status: err.status,
             message: msg
