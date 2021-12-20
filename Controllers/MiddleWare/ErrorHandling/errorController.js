@@ -33,6 +33,7 @@ const sendErrorDev = (err, req, res) => {
     if (req.originalUrl.startsWith('/api'))
     // * Response to send if doing a api request *
     {
+        console.log(err)
         return res.status(err.statusCode)
         .json({
             status: err.status,
