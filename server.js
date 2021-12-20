@@ -30,6 +30,17 @@ process.on('uncaughtException', err => {
     // this app will then be in a 'unclean' state. Restart server!
     process.exit(1)
 })
+
+// * SIGTERM Error Handling - Every 24 hours heroku sends a SIGTERM to shut down and restart the dyno
+// the app is in. * 
+process.on('SIGTERM', () => {
+    console.log('SIGTERM received. Shutting down gracefully.');
+
+    // Will close the server, but after handling any last requests that haven't been processed yet.
+    server.close(() => {
+        console.log('Process Terminated.');
+    })
+});
 ///////////////////////////////////////////////////////
 
 
