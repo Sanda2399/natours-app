@@ -8,6 +8,11 @@ const bookingController = require('../Controllers/bookingController');
 // Creation of the main router.
 const router = express.Router();
 
+
+///////// MIDDLEWARE /////////
+// * Will run for every request and will put a alert message on our res.local. *
+router.use(viewController.alerts);
+
 ///////// VIEW ROUTES /////////
 router
 .route('/')

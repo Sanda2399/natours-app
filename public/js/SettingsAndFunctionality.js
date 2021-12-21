@@ -4,11 +4,11 @@ const hideAlert = () => {
 }
 
 // Type will be either 'success' or 'error'.
-const showAlert = (type, msg) => {
+const showAlert = (type, msg, time = 7) => {
     hideAlert();
     const markup = `<div class="alert alert--${type}">${msg}</div>`;
     document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
-    window.setTimeout(hideAlert, 5000);
+    window.setTimeout(hideAlert, time * 1000);
 }
 
 
@@ -187,4 +187,10 @@ if (bookBtn)
        const { tourId } = event.target.dataset;
        bookTour(tourId);
    });
+}
+
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alert)
+{
+    showAlert('success', alertMessage, 20);
 }
