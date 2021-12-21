@@ -11,8 +11,7 @@ const router = express.Router();
 ///////// VIEW ROUTES /////////
 router
 .route('/')
-.get(
-    bookingController.createBookingCheckout, 
+.get( 
     authController.isLoggedIn, 
     viewController.getOverview
 );

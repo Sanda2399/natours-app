@@ -13,11 +13,12 @@ const cors = require('cors');
 
 const globalErrorHandler = require('./Controllers/MiddleWare/ErrorHandling/errorController');
 const AppError = require('./Utilities/appError');
-const viewRouter = require('./Routes/viewRoutes');
 const tourRouter = require('./Routes/tourRoutes');
 const userRouter = require('./Routes/userRoutes');
 const reviewRouter = require('./Routes/reviewRoutes');
 const bookingRouter = require('./Routes/bookingRoutes');
+const bookingController = require('./Controllers/bookingController');
+const viewRouter = require('./Routes/viewRoutes');
 
 const app = express();
 
@@ -140,6 +141,12 @@ const limiter = rateLimit({
     message: 'Too many request from this IP. Please try again in an hour.'
 })
 app.use('/api', limiter);
+
+app.post(
+  '/webhook-checkout', 
+  express.raw({type: 'application/json'}), 
+  bookingController.webhookCheckout
+);
 
 // Modifies incoming request data to allow me to see the data on the body. Body Parser.
 // * Prevents req.body size from being larger than 10 kilobytes. * 
